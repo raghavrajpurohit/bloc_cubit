@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rest_api_example/blocs/internet_bloc/internet_bloc.dart';
-import 'package:rest_api_example/blocs/internet_bloc/internet_state.dart';
+import 'package:rest_api_example/blocs/internet_bloc/cubit/internet_cubit.dart';
 import 'package:rest_api_example/screen/homescreen.dart';
 
 void main() {
   runApp(MaterialApp(
     home: BlocProvider(
-      create: (context) => InternetBloc(InternetLoadingState()),
+      create: (context) => InternetCubit(),
       child: HomeScreen(),
     ),
   ));

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rest_api_example/blocs/internet_bloc/internet_bloc.dart';
-import 'package:rest_api_example/blocs/internet_bloc/internet_state.dart';
+import 'package:rest_api_example/blocs/internet_bloc/cubit/internet_cubit.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -18,16 +17,16 @@ class _HomeScreenState extends State<HomeScreen> {
           title: const Text('Rest Api Testing'),
         ),
         body: Center(
-          child: BlocConsumer<InternetBloc, InterentState>(
+          child: BlocConsumer<InternetCubit, InterentState>(
             listener: (context, state) {
-              if (state is InternetConnectedState) {
+              if (state == InterentState.Connected) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
                     content: Text('Internet Connected'),
                     backgroundColor: Colors.green,
                   ),
                 );
-              } else if (state is InternetDisconnectedState) {
+              } else if (state == InterentState.Disconnected) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
                     content: Text('Internet Disconnected'),
@@ -38,9 +37,9 @@ class _HomeScreenState extends State<HomeScreen> {
               // TODO: implement listener
             },
             builder: (context, state) {
-              if (state is InternetConnectedState) {
+              if (state == InterentState.Connected) {
                 return const Text('Internet Connected');
-              } else if (state is InternetDisconnectedState) {
+              } else if (state == InterentState.Disconnected) {
                 return const Text('Internet Disconnected');
               } else {
                 return const CircularProgressIndicator();
